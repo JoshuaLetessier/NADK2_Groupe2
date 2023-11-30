@@ -1,12 +1,24 @@
+import {
+  publicToken,
+  mainSceneUUID,
+  characterControllerSceneUUID,
+} from "./config.js";
+
+import { InitFirstPersonController } from "./player.js";
+
 async function InitApp() {
   await SDK3DVerse.joinOrStartSession({
-    userToken: "public_VgFOTMCc8tJRIuf2",
-    sceneUUID: "f8eb08e3-c82f-4775-9099-9df75861dc16",
+    userToken: publicToken,
+    sceneUUID: mainSceneUUID,
     canvas: document.getElementById("display-canvas"),
-    viewportProperties: {
-      defaultControllerType: SDK3DVerse.controller_type.orbit,
-    },
+    connectToEditor: true,
+    startSimulation: "on-assets-loaded",
   });
+
+  await InitFirstPersonController(characterControllerSceneUUID);
 }
+
+
+
 
 window.addEventListener('load', InitApp());
