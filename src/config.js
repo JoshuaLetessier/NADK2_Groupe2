@@ -1,3 +1,3 @@
-export const publicToken = "public_VgFOTMCc8tJRIuf2";
-export const mainSceneUUID = "f8eb08e3-c82f-4775-9099-9df75861dc16";
-export const characterControllerSceneUUID = "73461dd6-f66a-45cf-a53a-3239fcca25a9";
+export const publicToken = "public_qYKytkFTB0gWMxry";
+export const mainSceneUUID = "a14fe655-9417-4bb0-9d63-af346ee6ad7e";
+export const characterControllerSceneUUID = "432bca42-efa1-490d-a56d-d447aaf93688";

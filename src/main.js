@@ -15,10 +15,11 @@ async function InitApp() {
     startSimulation: "on-assets-loaded",
   });
 
-  await InitFirstPersonController(characterControllerSceneUUID);
+    await InitFirstPersonController(characterControllerSceneUUID);
+
+
+
 }
-
-
 
 
 window.addEventListener('load', InitApp());
