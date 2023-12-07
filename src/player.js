@@ -3,7 +3,6 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     // components we want to attach to it. In this case we only want a scene_ref
     // that points to the character controller scene.
     const playerTemplate = new SDK3DVerse.EntityTemplate();
-    const EntityTemplate = new SDK3DVerse.EntityTemplate();
 
     playerTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
     //EntityTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
@@ -28,17 +27,25 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 
     playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
 
-    const player = await SDK3DVerse.engineAPI.findEntitiesByNames("PERSO DE MERDE");
-    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("5ed7522a-a31c-41e6-98f4-35a7e900a596");
+    const player = await SDK3DVerse.engineAPI.findEntitiesByNames("Dieux Quentin");
+    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID({ value: charCtlSceneUUID });
+
+    const meshUUID = { value: charCtlSceneUUID };
+    const meshRefComponent = { value: meshUUID, submeshIndex: 0 };
+
 
     SDK3DVerse.engineAPI.onEnterTrigger((player, block) => {
-        console.log(player.components.debug_name.value, " entered trigger of ", block.components.debug_name.value);
-        /*EntityTemplate.setComponent("blocJoshua", { position: [10, 10, 10] });*/
-    });
+        console.log(player/*.components.debug_name.value*/, " entered trigger of ", block.components.debug_name.value);
 
-/*    if (SDK3DVerse.engineAPI.onEnterTrigger() ) {
-        console.log("OUIIIIIIIIIII");
-    }*/
+/*        block.attachComponent({ value: "84a6f2d5-f1c9-45ac-aecc-787f5577278b" }, meshRefComponent);
+
+        block.isAttached("camera");*/
+        block.setComponent('local_transform', { position: [player.components.local_transform.position[1], player.components.local_transform.position[2], 0] });
+
+/*        block.attachComponent({ value: charCtlSceneUUID }, meshRefComponent);*/
+        //block.engineAPI.isAttached("Dieux Quentin");
+
+    });
 
     console.log(player, "Cheh");
 
