@@ -3,7 +3,11 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
   // components we want to attach to it. In this case we only want a scene_ref
   // that points to the character controller scene.
   const playerTemplate = new SDK3DVerse.EntityTemplate();
+
+  const EntityTemplate = new SDK3DVerse.EntityTemplate();
+
   playerTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
+  //EntityTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
 
   // Passing null as parent entity will instantiate our new entity at the root
   // of the main scene.
@@ -16,19 +20,31 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
   // instantiate a transient entity.
   // Note that an entity template can be instantiated multiple times.
   // Each instantiation results in a new entity.
+
   const playerSceneEntity = await playerTemplate.instantiateTransientEntity(
-    "Player",
-    parentEntity,
-    deleteOnClientDisconnection
+      "Josh", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
+      parentEntity,
+      deleteOnClientDisconnection
   );
 
+  playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
+
+  const player = await SDK3DVerse.engineAPI.findEntitiesByNames("PERSO DE MERDE");
+  const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("5ed7522a-a31c-41e6-98f4-35a7e900a596");
+  var enter = new Boolean(false);
+  SDK3DVerse.engineAPI.onEnterTrigger((player, block) => {
+      console.log(player.components.debug_name.value, " entered trigger of ", block.components.debug_name.value);
+      const enter = true; 
+  });
+  follow(block, enter);
+  
   // The character controller scene is setup as having a single entity at its
   // root which is the first person controller itself.
   const firstPersonController = (await playerSceneEntity.getChildren())[0];
   // Look for the first person camera in the children of the controller.
   const children = await firstPersonController.getChildren();
   const firstPersonCamera = children.find((child) =>
-    child.isAttached("camera")
+      child.isAttached("camera")
   );
 
   // We need to assign the current client to the first person controller
@@ -39,4 +55,23 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
   // Finally set the first person camera as the main camera.
   SDK3DVerse.setMainCamera(firstPersonCamera);
 }
+
+
+
+
+async function follow(object, bool) {
+  // Calcule la position du joueur
+  if(bool === true)
+      {
+        console.log("follow");
+        const transformObject = object.getGlobalTransform();
+        console.log(transformObject);
+
+        const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
+        console.log(await transformCamera[0].getTransform())
+
+        object.setGlobalTransform(transformCamera[0].getTransform());
+        console.log(object.getGlobalTransform());
+      }
+    }
 
