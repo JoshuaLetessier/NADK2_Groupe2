@@ -74,3 +74,20 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 
 
 
+
+async function follow(object, bool) {
+  // Calcule la position du joueur
+  if(bool === true)
+      {
+        console.log("follow");
+        const transformObject = object.getGlobalTransform();
+        console.log(transformObject);
+
+        const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
+        console.log(await transformCamera[0].getTransform())
+
+        object.setGlobalTransform(transformCamera[0].getTransform());
+        console.log(object.getGlobalTransform());
+      }
+    }
+

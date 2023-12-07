@@ -2,9 +2,16 @@ import {
   publicToken,
   mainSceneUUID,
   characterControllerSceneUUID,
+  level,
+  characterEntity,
+  objectEntity,
 } from "./config.js";
 
-import { InitFirstPersonController } from "./player.js";
+import { InitFirstPersonController, } from "./player.js";
+
+
+
+
 
 async function InitApp() {
   await SDK3DVerse.joinOrStartSession({
@@ -13,6 +20,7 @@ async function InitApp() {
     canvas: document.getElementById("display-canvas"),
     connectToEditor: true,
     startSimulation: "on-assets-loaded",
+    
   });
 
     await InitFirstPersonController(characterControllerSceneUUID);
