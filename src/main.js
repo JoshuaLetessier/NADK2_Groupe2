@@ -2,9 +2,9 @@ import {
   publicToken,
   mainSceneUUID,
   characterControllerSceneUUID,
-  level,
-  characterEntity,
-  objectEntity,
+  //level,
+  //characterEntity,
+  //objectEntity,
 } from "./config.js";
 
 import { InitFirstPersonController, } from "./player.js";
