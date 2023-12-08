@@ -3,9 +3,9 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     // components we want to attach to it. In this case we only want a scene_ref
     // that points to the character controller scene.
     const playerTemplate = new SDK3DVerse.EntityTemplate();
+    
 
     playerTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
-    //EntityTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
 
     // Passing null as parent entity will instantiate our new entity at the root
     // of the main scene.
@@ -20,37 +20,23 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     // Each instantiation results in a new entity.
 
     const playerSceneEntity = await playerTemplate.instantiateTransientEntity(
-        "Dieux Quentin", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
+        "Josh", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
         parentEntity,
         deleteOnClientDisconnection
     );
 
     playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
 
-    const player = await SDK3DVerse.engineAPI.findEntitiesByNames("Dieux Quentin");
-    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID({ value: charCtlSceneUUID });
+    //const player = await SDK3DVerse.engineAPI.findEntitiesByEUID("9ce6d264-7ae4-49f8-8b91-2f89aeafc5bb");
+    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("5ed7522a-a31c-41e6-98f4-35a7e900a596");
 
-    const meshUUID = { value: charCtlSceneUUID };
-    const meshRefComponent = { value: meshUUID, submeshIndex: 0 };
-
-
-    SDK3DVerse.engineAPI.onEnterTrigger((player, block) => {
-        console.log(player/*.components.debug_name.value*/, " entered trigger of ", block.components.debug_name.value);
-
-/*        block.attachComponent({ value: "84a6f2d5-f1c9-45ac-aecc-787f5577278b" }, meshRefComponent);
-
-        block.isAttached("camera");*/
-        block.setComponent('local_transform', { position: [player.components.local_transform.position[1], player.components.local_transform.position[2], 0] });
-
-/*        block.attachComponent({ value: charCtlSceneUUID }, meshRefComponent);*/
-        //block.engineAPI.isAttached("Dieux Quentin");
-
+    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
+        setInterval(function() {
+            follow(block);
+          }, 10);
+        //surbrillance de l'object
+        SDK3DVerse.engineAPI.selectEntities([block]);
     });
-
-    console.log(player, "Cheh");
-
-    console.log("Salut");
-
 
     // The character controller scene is setup as having a single entity at its
     // root which is the first person controller itself.
@@ -62,7 +48,6 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
          
     );
 
-
     // We need to assign the current client to the first person controller
     // script which is attached to the firstPersonController entity.
     // This allows the script to know which client inputs it should read.
@@ -72,13 +57,8 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     SDK3DVerse.setMainCamera(firstPersonCamera);
 }
 
-
-
-
-async function follow(object, bool) {
+async function follow(object) {
   // Calcule la position du joueur
-  if(bool === true)
-      {
         console.log("follow");
         const transformObject = object.getGlobalTransform();
         console.log(transformObject);
@@ -88,6 +68,4 @@ async function follow(object, bool) {
 
         object.setGlobalTransform(transformCamera[0].getTransform());
         console.log(object.getGlobalTransform());
-      }
-    }
-
+}
