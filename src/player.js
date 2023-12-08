@@ -20,14 +20,14 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     // Each instantiation results in a new entity.
 
     const playerSceneEntity = await playerTemplate.instantiateTransientEntity(
-        "Dieux Quentin", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
+        "Dieux Alexandre", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
         parentEntity,
         deleteOnClientDisconnection
     );
 
     playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
 
-    const player = await SDK3DVerse.engineAPI.findEntitiesByNames("Dieux Quentin");
+    const player = await SDK3DVerse.engineAPI.findEntitiesByNames("Dieux Alexandre");
     const block = await SDK3DVerse.engineAPI.findEntitiesByEUID({ value: charCtlSceneUUID });
 
     const meshUUID = { value: charCtlSceneUUID };

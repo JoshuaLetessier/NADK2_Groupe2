@@ -8,6 +8,7 @@ import {
 } from "./config.js";
 
 import { InitFirstPersonController, } from "./player.js";
+import { updateCountdown, } from "./Timer.js";
 
 
 
@@ -24,7 +25,7 @@ async function InitApp() {
   });
 
     await InitFirstPersonController(characterControllerSceneUUID);
-
+    await updateCountdown();
 
 
 }
