@@ -1,3 +1,4 @@
+
 export async function InitFirstPersonController(charCtlSceneUUID) {
     // To spawn an entity we need to create an EntityTempllate and specify the
     // components we want to attach to it. In this case we only want a scene_ref
@@ -28,15 +29,19 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
 
     //const player = await SDK3DVerse.engineAPI.findEntitiesByEUID("9ce6d264-7ae4-49f8-8b91-2f89aeafc5bb");
-    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("5ed7522a-a31c-41e6-98f4-35a7e900a596");
+    
+    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("779b6587-629c-428d-aa8a-423c9709dc94");
 
-    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
-        setInterval(function() {
-            follow(block);
-          }, 10);
-        //surbrillance de l'object
-        SDK3DVerse.engineAPI.selectEntities([block]);
-    });
+    //detection trigger enter
+    if(_onExitTrigger(playerSceneEntity, block))
+    {
+        SDK3DVerse.engineAPI.unselectAllEntities();
+    }
+    else
+    {
+       _onEnterTrigger(playerSceneEntity, block);
+       console.log(block);
+    }
 
     // The character controller scene is setup as having a single entity at its
     // root which is the first person controller itself.
@@ -45,7 +50,6 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     const children = await firstPersonController.getChildren();
     const firstPersonCamera = children.find((child) =>
         child.isAttached("camera")
-         
     );
 
     // We need to assign the current client to the first person controller
@@ -57,15 +61,67 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     SDK3DVerse.setMainCamera(firstPersonCamera);
 }
 
+
 async function follow(object) {
   // Calcule la position du joueur
-        console.log("follow");
-        const transformObject = object.getGlobalTransform();
-        console.log(transformObject);
+       // console.log("follow");
+
+       /* const transformObject = object.getGlobalTransform(); 
+        //console.log(transformObject);
 
         const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
-        console.log(await transformCamera[0].getTransform())
+        //console.log(await transformCamera[0].getTransform())
 
         object.setGlobalTransform(transformCamera[0].getTransform());
-        console.log(object.getGlobalTransform());
+        //console.log(object.getGlobalTransform());*/
 }
+
+function detectInput()
+{
+    
+}
+
+function _onEnterTrigger(playerSceneEntity, block)
+{
+    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
+        //surbrillance de l'object
+        SDK3DVerse.engineAPI.selectEntities([block]);
+
+        //const key = SDK3DVerse.getKey("z");
+        //console.log(key); 
+        //console.log("Appuie P");
+        const key = "";
+        var event = new KeyboardEvent("keydown", {key:key});
+        handleKeyDown(event);
+        document.dispatchEvent(event);
+        //console.log(block);
+    });
+}
+
+function _onExitTrigger(playerSceneEntity, block)
+{
+    console.log('onexit');
+    SDK3DVerse.engineAPI.onExitTrigger(async(playerSceneEntity, block) => {
+        return false;
+    })
+}
+
+async function handleKeyDown(event) {
+    
+    var keyPressed = event.key;
+    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("779b6587-629c-428d-aa8a-423c9709dc94");
+
+    console.log("Touche pressée : " + keyPressed);
+    if (keyPressed == "Enter") { //récupérer object
+        console.log(block);
+        //console.log("P pressed");
+        setInterval(function () {
+            follow(block);
+        }, 10);
+    }
+    else if(keyPressed == "p") //pose du bloque
+    {
+
+    }
+}
+document.addEventListener("keydown", handleKeyDown);
