@@ -66,14 +66,14 @@ async function follow(object) {
   // Calcule la position du joueur
        // console.log("follow");
 
-       /* const transformObject = object.getGlobalTransform(); 
+        const transformObject = object.getGlobalTransform(); 
         //console.log(transformObject);
 
         const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
         //console.log(await transformCamera[0].getTransform())
 
         object.setGlobalTransform(transformCamera[0].getTransform());
-        //console.log(object.getGlobalTransform());*/
+        //console.log(object.getGlobalTransform());
 }
 
 function detectInput()
