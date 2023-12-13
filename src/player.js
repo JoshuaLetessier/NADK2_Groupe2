@@ -66,7 +66,7 @@ async function follow(object) {
   // Calcule la position du joueur
        // console.log("follow");
 
-        const transformObject = object.getGlobalTransform(); 
+        //const transformObject = object.getGlobalTransform(); 
         //console.log(transformObject);
 
         const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
@@ -109,14 +109,14 @@ async function handleKeyDown(event) {
     const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("779b6587-629c-428d-aa8a-423c9709dc94");
 
     //console.log("Touche pressée : " + keyPressed);
-    if (keyPressed == "Enter") { //récupérer object
+    if (keyPressed === "Enter") { //récupérer object
         console.log(block);
         //console.log("P pressed");
         setInterval(function () {
             follow(block);
         }, 10);
     }
-    else if(keyPressed == "p") //pose du bloque
+    else if(keyPressed === "p") //pose du bloque
     {
 
     }

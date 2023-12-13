@@ -45,17 +45,17 @@ let time = 5 * 60; //minutes * 60 seconds
 let refreshIntervalId = setInterval(updateCountdown, 1000); //update every 1 second
 
 export async function updateCountdown() {
-    const minutes = Math.floor(time / 60); // rounds a number DOWN to the nearest integer
-    let seconds = time % 60;
+   // const minutes = Math.floor(time / 60); // rounds a number DOWN to the nearest integer
+    ////let seconds = time % 60;
 
-    seconds = seconds < 10 ? '0' + seconds : seconds;
+    //seconds = seconds < 10 ? '0' + seconds : seconds;
 
     time--;
 
     if (time < 0) { //stop the setInterval whe time = 0 for avoid negative time
         clearInterval(refreshIntervalId);
     }
-    if(time == -1)
+    if(time === -1)
     {
         console.log("mort");
         //location.reload();
