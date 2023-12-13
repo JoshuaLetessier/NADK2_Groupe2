@@ -1,9 +1,9 @@
+
 export async function InitFirstPersonController(charCtlSceneUUID) {
     // To spawn an entity we need to create an EntityTempllate and specify the
     // components we want to attach to it. In this case we only want a scene_ref
     // that points to the character controller scene.
     const playerTemplate = new SDK3DVerse.EntityTemplate();
-    
 
     playerTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
 
@@ -28,15 +28,24 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
 
     //const player = await SDK3DVerse.engineAPI.findEntitiesByEUID("9ce6d264-7ae4-49f8-8b91-2f89aeafc5bb");
-    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("5ed7522a-a31c-41e6-98f4-35a7e900a596");
+    
+    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("4f0e8ff7-2ac6-46e6-b7d9-8c77cc99779a");
 
     SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
-        setInterval(function() {
-            follow(block);
-          }, 10);
         //surbrillance de l'object
         SDK3DVerse.engineAPI.selectEntities([block]);
+       
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+              // Traitement de l'événement
+              setInterval(function () {
+                follow(block);
+              }, 10);
+            }
+          });
+       
     });
+
 
     // The character controller scene is setup as having a single entity at its
     // root which is the first person controller itself.
@@ -45,7 +54,6 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     const children = await firstPersonController.getChildren();
     const firstPersonCamera = children.find((child) =>
         child.isAttached("camera")
-         
     );
 
     // We need to assign the current client to the first person controller
@@ -58,14 +66,16 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 }
 
 async function follow(object) {
-  // Calcule la position du joueur
-        console.log("follow");
-        const transformObject = object.getGlobalTransform();
-        console.log(transformObject);
+         // Calcule la position du joueur
+       // console.log("follow");
+       // console.log(object);
+        //const transformObject = object.getGlobalTransform(); 
+        //console.log(transformObject);
 
         const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
-        console.log(await transformCamera[0].getTransform())
+        //console.log(await transformCamera[0].getTransform())
 
         object.setGlobalTransform(transformCamera[0].getTransform());
         console.log(object.getGlobalTransform());
 }
+//document.addEventListener("keydown",  );
