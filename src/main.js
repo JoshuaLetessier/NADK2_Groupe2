@@ -1,10 +1,12 @@
-import {
+/*import {
   publicToken,
   mainSceneUUID,
   characterControllerSceneUUID,
 } from "./config.js";
 
 import { InitFirstPersonController, } from "./player.js";
+import { updateCountdown } from "./Timer.js";
+
 
 async function InitApp() {
   await SDK3DVerse.joinOrStartSession({
@@ -17,7 +19,8 @@ async function InitApp() {
   });
 
     await InitFirstPersonController(characterControllerSceneUUID);
+    await updateCountdown();
 }
 
 
-window.addEventListener('load', InitApp());
+window.addEventListener('load', InitApp());*/

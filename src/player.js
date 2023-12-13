@@ -5,7 +5,7 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     // that points to the character controller scene.
     const playerTemplate = new SDK3DVerse.EntityTemplate();
     
-
+    console.log('bouge toi');
     playerTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
 
     // Passing null as parent entity will instantiate our new entity at the root
@@ -76,10 +76,7 @@ async function follow(object) {
         //console.log(object.getGlobalTransform());
 }
 
-function detectInput()
-{
-    
-}
+
 
 function _onEnterTrigger(playerSceneEntity, block)
 {
@@ -111,7 +108,7 @@ async function handleKeyDown(event) {
     var keyPressed = event.key;
     const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("779b6587-629c-428d-aa8a-423c9709dc94");
 
-    console.log("Touche pressée : " + keyPressed);
+    //console.log("Touche pressée : " + keyPressed);
     if (keyPressed == "Enter") { //récupérer object
         console.log(block);
         //console.log("P pressed");
