@@ -31,39 +31,21 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
     
     const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("4f0e8ff7-2ac6-46e6-b7d9-8c77cc99779a");
 
-    //detection trigger enter
-    /*if(_onExitTrigger(playerSceneEntity, block))
-    {
-        SDK3DVerse.engineAPI.unselectAllEntities();
-    }
-    else
-    {
-       _onEnterTrigger(playerSceneEntity, block[0]);
-       //console.log(block);
-    }*/
-
     SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
         //surbrillance de l'object
         SDK3DVerse.engineAPI.selectEntities([block]);
-        
-        const key = "";
-        var event = new KeyboardEvent("keydown", {key:key});
-        console.log(block);
-        //handleKeyDown(event, block[0]);
-        document.dispatchEvent(event);
-        var keyPressed = event.key;
-        
-        if (keyPressed === "Enter")
-        {
-            setInterval(function () {
+       
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+              // Traitement de l'événement
+              setInterval(function () {
                 follow(block);
-            }, 10);
-        }
+              }, 10);
+            }
+          });
        
     });
 
-    /*if(!_onEnterTrigger(block))
-        SDK3DVerse.engineAPI.unselectAllEntities();*/
 
     // The character controller scene is setup as having a single entity at its
     // root which is the first person controller itself.
@@ -96,55 +78,4 @@ async function follow(object) {
         object.setGlobalTransform(transformCamera[0].getTransform());
         console.log(object.getGlobalTransform());
 }
-
-/*
-function _onEnterTrigger(playerSceneEntity, block)
-{
-    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
-        //surbrillance de l'object
-        SDK3DVerse.engineAPI.selectEntities([block]);
-        
-        follow(block);
-        //const key = SDK3DVerse.getKey("z");
-        //console.log(key); 
-        //console.log("Appuie P");
-        /*
-        const key = "";
-        var event = new KeyboardEvent("keydown", {key:key});
-        console.log(block);
-        handleKeyDown(event, block[0]);
-        document.dispatchEvent(event);
-        
-    });
-}
-
-function _onExitTrigger(playerSceneEntity, block)
-{
-    console.log('onexit');
-    SDK3DVerse.engineAPI.onExitTrigger(async(playerSceneEntity, block) => {
-        return false;
-    })
-    return true;
-}
-
-async function handleKeyDown(event, block) {
-    
-    var keyPressed = event.key;
-    //const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("779b6587-629c-428d-aa8a-423c9709dc94");
-
-    console.log("Touche pressée : " + keyPressed);
-    if (keyPressed === "Enter") { //récupérer object
-        //console.log(block);
-        //console.log("P pressed");
-        follow(block);
-        /*setInterval(function () {
-            follow(block[0]);
-        }, 10);
-    }
-    else if(keyPressed === "p") //pose du bloque
-    {
-
-    }
-}
-*/
-//document.addEventListener("keydown");
+//document.addEventListener("keydown",  );
