@@ -20,11 +20,11 @@ export const Overlay = () => {
 
       seconds = seconds < 10 ? '0' + seconds : seconds;
 
-      console.log(`${minutes}:${seconds}`);
+      //console.log(`${minutes}:${seconds}`);
 
       if (prevTime <= 0) {
         clearInterval(refreshIntervalId);
-        console.log("Temps écoulé");
+        //console.log("Temps écoulé");
         // Faites ce que vous devez faire à la fin du compte à rebours ici
       }
 
@@ -36,7 +36,7 @@ export const Overlay = () => {
     <div id="overlay"
     style={{
         position: 'absolute',
-        zIndex: '9999vw',
+        //zIndex: '9999vw',
         top: '15',
         left: '15',
         color: 'white',
@@ -67,10 +67,10 @@ export async function updateCountdown() {
     }
     if(time === -1)
     {
-        console.log("mort");
+        //console.log("mort");
         //location.reload();
     }
 
     //console.log(refreshIntervalId, "timer 1");
-    console.log(time, "time 2");
+    //console.log(time, "time 2");
 }
