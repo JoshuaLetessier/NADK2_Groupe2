@@ -1,14 +1,16 @@
 import { useCallback, useEffect } from 'react';
 import { useScript } from '@uidotdev/usehooks';
 
-import { InitFirstPersonController, } from "./player.js";
+import { InitFirstPersonController, } from "../player.js";
+
+import { Overlay } from './Overlay';
 
 
 import {
   publicToken,
   mainSceneUUID,
   characterControllerSceneUUID,
-} from "./config.js";
+} from "../config.js";
 
 export const Canvas = () => {
   const status = useScript(
@@ -49,7 +51,9 @@ export const Canvas = () => {
           verticalAlign: 'middle',
         }}
         tabIndex="1"
-      ></canvas>
+      >
+      <Overlay />
+      </canvas>
     </>
   );
 };

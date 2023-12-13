@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Overlay = () => {
+export const Overlay = () => {
   const [time, setTime] = useState(5 * 60);
 
   useEffect(() => {
@@ -33,7 +33,17 @@ const Overlay = () => {
   };
 
   return (
-    <div id="overlay">
+    <div id="overlay"
+    style={{
+        position: 'absolute',
+        zIndex: '9999vw',
+        top: '15',
+        left: '15',
+        color: 'white',
+        backgroundColor:'black',
+      }}
+      
+      >
       <div>{time < 0 ? 'Temps écoulé' : `${Math.floor(time / 60)}:${time % 60}`}</div>
     </div>
   );

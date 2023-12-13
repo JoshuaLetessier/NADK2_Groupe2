@@ -83,6 +83,7 @@ function _onEnterTrigger(playerSceneEntity, block)
     SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
         //surbrillance de l'object
         SDK3DVerse.engineAPI.selectEntities([block]);
+        
 
         //const key = SDK3DVerse.getKey("z");
         //console.log(key); 
