@@ -63,23 +63,47 @@ async function Drop(object) {
     //console.log(object.getGlobalTransform());
 }
 
+async function follow(object) {
+    // Calcule la position du joueur
+    const transformObject = object.getGlobalTransform();
+    const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
+    object.setGlobalTransform(transformCamera[0].getTransform());
+}
+
+function _onEnterTrigger(playerSceneEntity, block) {
+    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
+        //surbrillance de l'object
+        SDK3DVerse.engineAPI.selectEntities([block]);
+        const key = "";
+        var event = new KeyboardEvent("keydown", { key: key });
+        handleKeyDown(event);
+        document.dispatchEvent(event);
+    });
+}
+
+function _onExitTrigger(playerSceneEntity, block) {
+    console.log('onexit');
+    SDK3DVerse.engineAPI.onExitTrigger(async (playerSceneEntity, block) => {
+        return false;
+    })
+}
+
 async function handleKeyDown(event) {
 
-    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID({ value: "779b6587-629c-428d-aa8a-423c9709dc94" });
-    const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports();
-
     var keyPressed = event.key;
+    const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("779b6587-629c-428d-aa8a-423c9709dc94");
 
-    if (keyPressed == "a") { //récupérer object
+    console.log("Touche pressée : " + keyPressed);
+    if (keyPressed == "Enter") { //récupérer object
+        console.log(block);
+        //console.log("P pressed");
         setInterval(function () {
-
-            block.setGlobalTransform({ position: [transformCamera[0].getTransform().position[0], transformCamera[0].getTransform().position[1] - 1, transformCamera[0].getTransform().position[2]], orientation: [0, 0, 0, 1], scale: [0.5, 0.5, 0.5] });
-
+            follow(block);
         }, 10);
     }
     else if (keyPressed == "p") //pose du bloque
     {
-        Drop(block);
+
     }
 }
 document.addEventListener("keydown", handleKeyDown);
