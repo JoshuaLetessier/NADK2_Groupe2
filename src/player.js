@@ -1,26 +1,25 @@
 
+
+class Taking{
+    FullHand = new Boolean(false);
+}
+
+
 export async function InitFirstPersonController(charCtlSceneUUID) {
-    // To spawn an entity we need to create an EntityTempllate and specify the
-    // components we want to attach to it. In this case we only want a scene_ref
-    // that points to the character controller scene.
+
     const playerTemplate = new SDK3DVerse.EntityTemplate();
 
     playerTemplate.attachComponent("scene_ref", { value: charCtlSceneUUID });
 
-    // Passing null as parent entity will instantiate our new entity at the root
-    // of the main scene.
+
     const parentEntity = null;
-    // Setting this option to true will ensure that our entity will be destroyed
-    // when the client is disconnected from the session, making sure we don't
-    // leave our 'dead' player body behind.
+
     const deleteOnClientDisconnection = true;
-    // We don't want the player to be saved forever in the scene, so we
-    // instantiate a transient entity.
-    // Note that an entity template can be instantiated multiple times.
-    // Each instantiation results in a new entity.
+
 
     const playerSceneEntity = await playerTemplate.instantiateTransientEntity(
-        "Josh", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
+
+        "Quentin", // <-----------------------------------------------------------------------------------    RENAME Here / Renomage ici
         parentEntity,
         deleteOnClientDisconnection
     );
@@ -49,6 +48,11 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 
     // The character controller scene is setup as having a single entity at its
     // root which is the first person controller itself.
+
+
+    Take();
+
+
     const firstPersonController = (await playerSceneEntity.getChildren())[0];
     // Look for the first person camera in the children of the controller.
     const children = await firstPersonController.getChildren();
@@ -56,14 +60,16 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         child.isAttached("camera")
     );
 
+
     // We need to assign the current client to the first person controller
     // script which is attached to the firstPersonController entity.
     // This allows the script to know which client inputs it should read.
+
     SDK3DVerse.engineAPI.assignClientToScripts(firstPersonController);
 
-    // Finally set the first person camera as the main camera.
     SDK3DVerse.setMainCamera(firstPersonCamera);
 }
+
 
 async function follow(object) {
          // Calcule la position du joueur
@@ -79,3 +85,28 @@ async function follow(object) {
         console.log(object.getGlobalTransform());
 }
 //document.addEventListener("keydown",  );
+
+async function Take() {
+
+    const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
+
+    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
+        //surbrillance de l'object
+        SDK3DVerse.engineAPI.selectEntities([block]);
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key == "a" && Taking.FullHand == false) {
+                // Traitement de l'�v�nement
+                setInterval(function () {
+                    block.setGlobalTransform({ position: [transformCamera[0].getTransform().position[0], transformCamera[0].getTransform().position[1] - 1, transformCamera[0].getTransform().position[2]], orientation: [0, 0, 0, 1], scale: [0.5, 0.5, 0.5] });
+
+                }, 10);
+            }
+            else if (event.key == "p") {
+                block.setGlobalTransform({ position: [transformCamera[0].getTransform().position[0], transformCamera[0].getTransform().position[1] - transformCamera[0].getTransform().position[1], transformCamera[0].getTransform().position[2]], orientation: [0, 0, 0, 1], scale: [0.5, 0.5, 0.5] });
+            }
+        });
+
+    });
+}
+
