@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\css",
+    "\\dataPlayer",
     "\\src"
   ],
-  "SelectedNode": "\\src\\main.js",
+  "SelectedNode": "\\src\\shooter.js",
   "PreviewInSolutionExplorer": false
 }

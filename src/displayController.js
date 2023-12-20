@@ -40,7 +40,6 @@ export async function bestScore() {
     });
 }
 
-
 function displayScores(scores) {
     // Créer un élément conteneur pour les scores
     var containerElement = document.createElement('div');
@@ -68,3 +67,10 @@ function removeScoreContainer() {
         containerElement.remove();
     }
 }
+
+function bulletgestion()
+{
+
+}
+
+
