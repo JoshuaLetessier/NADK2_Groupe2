@@ -4,5 +4,72 @@ body {
   canvas {
     height: 100vh;
     width: 100vw;
-    vertical-align: middle;
+    
+    cursor: none;
+    display: block;
   }
+
+
+
+/*Element supplémentaire*/
+
+#leftCornerInfo {
+  position: absolute;
+  z-index: 9999;
+  top: 5px;
+  left: 10px;
+  background-color: rgba(37, 36, 36, 0.5); 
+  padding: 10px; 
+  border-radius: 5px; 
+}
+
+#timer, #point, #amo {
+  position: relative; 
+  z-index: 1; 
+  background-color: black;
+  color: white;
+  margin-bottom: 10px; 
+}
+#timer {
+  top: 0;
+}
+
+#point {
+  top: 10px; 
+}
+
+#amo {
+  top: 20px; 
+}
+
+
+#inputHelp {
+  position: absolute;
+  z-index: 9999;
+  top: 15px; 
+  right: 15px; 
+  background-color: red;
+  color: white;
+}
+
+
+
+#scoreContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8); /* Couleur noire avec une opacité de 0.8 */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10000;
+}
+
+#scoreContainer ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+

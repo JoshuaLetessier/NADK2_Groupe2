@@ -8,14 +8,31 @@
   </head>
 
   <body>
+    <script type="module" src="src/displayController.js"></script>
+     
     <div class="canvas-container">
       <!-- CANVAS -->
-      <div id="timer">00:00:00</div>
-      <script src="src/Timer.js"></script>
+      <header>
+        <article id="leftCornerInfo">
+          <div id="timer">00:00</div>
+          <script src="src/Timer.js"></script>
+
+          <div id="point">Point : </div>
+
+          <div id="amo">Amo : 10</div>
+        </article>
+      
+        <div id="inputHelp">    </div><!--do not delete space-->
+        
+      </header>
+      <article id="bestScore"></article>
+
       <canvas
         id="display-canvas"
         tabindex="1"
         oncontextmenu="event.preventDefault()"
+        width="800"
+        height="600"
       ></canvas>
     </div>
 

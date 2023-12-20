@@ -1,26 +1,32 @@
-function startTimer(durationInSeconds) {
-    let timerElement = document.getElementById('timer');
+document.addEventListener("DOMContentLoaded", function () {
+    // Attend que le document soit complètement chargé avant de démarrer le minuteur
 
-    let timer = durationInSeconds;
-    let hours, minutes, seconds;
+    function startTimer(durationInSeconds) {
+        let timerElement = document.getElementById('timer');
 
-    setInterval(function () {
-        hours = parseInt(timer / 3600, 10);
-        minutes = parseInt((timer % 3600) / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+        let timer = durationInSeconds;
+        let hours, minutes, seconds;
 
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+        setInterval(function () {
+            //hours = parseInt(timer / 3600, 10);
+            minutes = parseInt((timer % 3600) / 60, 10);
+            seconds = parseInt(timer % 60, 10);
 
-        timerElement.textContent = hours + ':' + minutes + ':' + seconds;
+           // hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
 
-        if (--timer < 0) {
-            // Le minuteur a atteint z�ro, vous pouvez effectuer des actions ici
-            timer = durationInSeconds; // R�initialiser le minuteur
-        }
-    }, 1000);
-}
+            timerElement.textContent = minutes + ':' + seconds;
 
-// Utilisation : d�marrer le minuteur avec une dur�e de 10 minutes
-startTimer(600);
+            if (--timer < 0) {
+                // Le minuteur a atteint zéro
+                timerElement.textContent = "Vous êtes mort";
+                // Vous pouvez effectuer d'autres actions ici si nécessaire
+                // Par exemple, arrêter le minuteur ou déclencher une autre fonction
+            }
+        }, 1000);
+    }
+
+    // Utilisation : démarrer le minuteur avec une durée de 10 minutes
+    startTimer(300); // Utilisation d'une courte durée à des fins de démonstration
+});
