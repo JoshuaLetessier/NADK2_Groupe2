@@ -5,16 +5,44 @@ import {
 } from "./config.js";
 import { InitFirstPersonController, } from "./player.js";
 import { bestScore } from "./displayController.js";
+import { findSession } from "./fontion.js";
 
 
 async function InitApp() {
-  await SDK3DVerse.joinOrStartSession({
-    userToken: publicToken,
-    sceneUUID: mainSceneUUID,
-    canvas: document.getElementById("display-canvas"),
-    connectToEditor: true,
-    startSimulation: "on-assets-loaded",
-  });
+    const sessions = findSession(mainSceneUUID, publicToken);
+    console.log(sessions);
+    sessions.then(resultat => {
+        console.log(resultat);
+        if (resultat == null){
+            SDK3DVerse.startSession({
+                userToken: publicToken,
+                sceneUUID: mainSceneUUID,
+                canvas: document.getElementById("display-canvas"),
+                connectToEditor: true,
+                startSimulation: "on-assets-loaded",
+              });
+        } else {
+            if (resultat[0]["session_id"]!= "" && resultat[0]["clients"][3] == null){
+                SDK3DVerse.joinSession({
+                    userToken: publicToken,
+                    sceneUUID: mainSceneUUID,
+                    canvas: document.getElementById("display-canvas"),
+                    connectToEditor: true,
+                    startSimulation: "on-assets-loaded",
+                });
+            }
+        }
+         
+    })
+
+    /*await SDK3DVerse.joinOrStartSession({
+        userToken: publicToken,
+        sceneUUID: mainSceneUUID,
+        canvas: document.getElementById('display-canvas'),
+        viewportProperties: {
+          defaultControllerType: SDK3DVerse.controller_type.orbit,
+        },
+      });*/
    
     const canvas = document.getElementById("display_canvas");//c'est null mais je sais pas
 
