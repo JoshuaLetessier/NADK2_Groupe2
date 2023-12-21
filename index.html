@@ -17,15 +17,22 @@
           <div id="timer">00:00</div>
           <script src="src/Timer.js"></script>
 
-          <div id="point">Point : </div>
+          <div id="point"></div>
+          <script type="module" src="src/Score.js"></script>
 
-          <div id="amo">Amo : 10</div>
+          <div id="amo"></div>
         </article>
       
         <div id="inputHelp">    </div><!--do not delete space-->
         
       </header>
       <article id="bestScore"></article>
+
+      <article>
+        <div id="win"></div>
+        <div id="loose"></div>
+        
+      </article>
 
       <canvas
         id="display-canvas"
@@ -34,6 +41,7 @@
         width="800"
         height="600"
       ></canvas>
+     <audio src="./Audio/desert-monolith-6369.mp3" id="idMusic"></audio>
     </div>
 
     <!-- SDK 3DVERSE -->

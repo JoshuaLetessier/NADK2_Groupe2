@@ -1,8 +1,17 @@
-export async function inputHelp()
+export async function inputHelp(input)
 {
-    var outputElement = document.getElementById('inputHelp');
-    outputElement.textContent = "A pour ramasser";
-    console.log('A pour ramasser')
+    if(input === "a" || input === "A")
+    {
+        var outputElement = document.getElementById('inputHelp');
+        outputElement.textContent = "A pour ramasser";
+        console.log('A pour ramasser')
+    }
+    else if( input === "p" || input === "P")
+    {
+        var outputElement = document.getElementById('inputHelp');
+        outputElement.textContent = "P pour ramasser";
+        console.log('P pour ramasser')
+    }
 }
 
 export async function endInputhelp()
@@ -68,9 +77,54 @@ function removeScoreContainer() {
     }
 }
 
-function bulletgestion()
+export async function getBulletCout()
 {
-
+    var bulletCount = 10;
+    return bulletCount;
 }
+
+
+export async function updateBulletDisplay() {
+    var bulletCount = getBulletCout();
+    var bulletDisplay = document.getElementById('amo');
+    if (bulletDisplay) {
+        bulletDisplay.textContent = "Bullets: " + bulletCount;
+    }
+}
+
+/*function incrementBullets() {
+    bulletCount++;
+    updateBulletDisplay();
+}*/
+
+export function audioOnEvent() {
+    // Récupérer l'élément audio par son ID
+    var audio = document.getElementById('idMusic');
+
+    // Fonction pour jouer l'audio en boucle
+    function playAudio() {
+        // Vérifier si l'élément audio existe
+        if (audio) {
+            // Activer la lecture en boucle
+            audio.loop = true;
+            
+            // Jouer l'audio
+            audio.play();
+        } else {
+            console.error("L'élément audio n'a pas été trouvé.");
+        }
+    }
+
+    // Attacher l'événement au clic sur n'importe quel élément de la page
+    document.addEventListener('click', playAudio);
+
+    // Attacher l'événement à l'appui sur n'importe quelle touche au chargement de la page
+    document.addEventListener('keydown', playAudio);
+}
+
+// Appeler la fonction au chargement de la page
+window.onload = function () {
+    audioOnEvent();
+};
 
 
