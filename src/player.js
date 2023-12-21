@@ -1,6 +1,5 @@
 import { shoot } from "./shooter.js";
 import { inputHelp, endInputhelp } from "./displayController.js";
-import { increaseScoreForAction } from "./Score.js";
 
 class Taking{
     FullHand = new Boolean(false);
@@ -26,12 +25,10 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         deleteOnClientDisconnection
     );
 
-
     playerSceneEntity.setComponent('local_transform', { position: [10, 7, 10] })
 
     //shoot(playerSceneEntity);
     Take(PropsTriggerEntity, playerSceneEntity,x);
-
 
     const firstPersonController = (await playerSceneEntity.getChildren())[0];
     // Look for the first person camera in the children of the controller.
@@ -57,7 +54,16 @@ async function Take(PropsTriggerEntity, playerSceneEntity,x) {
     SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, PropsTriggerEntity, props) => {
         //surbrillance de l'object
         SDK3DVerse.engineAPI.selectEntities([PropsTriggerEntity]);
-
+        if(PropsTriggerEntity.components.debug_name.value !== "machinedroite")
+        {
+            const input = "a";
+            inputHelp(input);
+        }
+        else{
+            const input = "p";
+            inputHelp(input);
+        }
+       
         document.addEventListener("keydown", async (event) => {
             const block1 = await SDK3DVerse.engineAPI.findEntitiesByEUID("39f3f7d5-5a09-4e33-ab16-72229bd88aaf");
             const props = await SDK3DVerse.engineAPI.findEntitiesByEUID("8975af37-d5b6-4137-bb6c-f6fc4fe36fd2"); //Ref de la main
@@ -90,7 +96,7 @@ async function Take(PropsTriggerEntity, playerSceneEntity,x) {
             }
         });
 
-        inputHelp();
+        
 
     });
 
@@ -99,4 +105,3 @@ async function Take(PropsTriggerEntity, playerSceneEntity,x) {
         endInputhelp();
     })
 }
-

@@ -1,7 +1,17 @@
-export async function inputHelp()
+export async function inputHelp(input)
 {
-    var outputElement = document.getElementById('inputHelp');
-    outputElement.textContent = "A pour intéragir";
+    if(input === "a" || input === "A")
+    {
+        var outputElement = document.getElementById('inputHelp');
+        outputElement.textContent = "A pour ramasser";
+        console.log('A pour ramasser')
+    }
+    else if( input === "p" || input === "P")
+    {
+        var outputElement = document.getElementById('inputHelp');
+        outputElement.textContent = "P pour ramasser";
+        console.log('P pour ramasser')
+    }
 }
 
 export async function endInputhelp()
