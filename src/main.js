@@ -25,19 +25,24 @@ async function InitApp() {
         console.log("Début du script");
 
         // Utilisation de la fonction delay pour introduire un délai de 2 secondes
-        await delay(5000);
+        await delay(9200);
+        await InitFirstPersonController(characterControllerSceneUUID);
+        await bestScore();
+        await setFPSCameraController(canvas);
 
-        console.log("Exécution après un délai de 5 secondes");
+        console.log("Exécution après un délai de 9.2 secondes");
 
         console.log("Fin du script");
     }
+    const animationSequenceUUID = "3fcd65b5-931a-45b7-ab7e-4855b01a8a05";
     const settings = { playbackSpeed: 1 };
+    const mainCamera = await SDK3DVerse.engineAPI.findEntitiesByEUID("3b078256-a148-4d48-8811-1cdf0ebc12aa");
+    console.log(mainCamera);
+    SDK3DVerse.setMainCamera(mainCamera[0]);
+    SDK3DVerse.engineAPI.stopAnimationSequence(animationSequenceUUID);
     SDK3DVerse.engineAPI.playAnimationSequence(animationSequenceUUID, settings);
     example();
 
-    await InitFirstPersonController(characterControllerSceneUUID);
-    await bestScore();
-    await setFPSCameraController(canvas);
 }
 
 window.addEventListener('load', InitApp());
