@@ -1,5 +1,6 @@
 import { shoot } from "./shooter.js";
 import { inputHelp, endInputhelp } from "./displayController.js";
+import { increaseScoreForAction } from "./Score.js";
 
 class Taking{
     FullHand = new Boolean(false);
@@ -23,11 +24,11 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         deleteOnClientDisconnection
     );
 
-    playerSceneEntity.setComponent('local_transform', { position: [-3, 0, 0] })
+    playerSceneEntity.setComponent('local_transform', { position: [-50, 15, 80] })
 
     const block = await SDK3DVerse.engineAPI.findEntitiesByEUID("b6fe0125-4720-4d80-9f94-ec4ac74c8722");
 
-    //shoot(playerSceneEntity);
+    shoot(playerSceneEntity);
     Take(block, playerSceneEntity);
 
     const firstPersonController = (await playerSceneEntity.getChildren())[0];
@@ -50,17 +51,26 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 async function Take(block, playerSceneEntity) {
 
     const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
-    const props = await SDK3DVerse.engineAPI.findEntitiesByEUID("1fb4e287-da26-4bff-9571-25a40b03cf3d");
+    const props = await SDK3DVerse.engineAPI.findEntitiesByEUID("6523e856-c7a4-4e63-a160-554424fcf5be");
+    console.log(props);
     const meshBlock = {value : block};
+    
 
     SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block) => {
         //surbrillance de l'object
         SDK3DVerse.engineAPI.selectEntities([block]);
 
         inputHelp();
-        document.addEventListener("keydown", function (event) {
+        document.addEventListener("keydown", async function (event) {
             if (event.key == "a") {
-                props.setComponent('mesh_ref', meshBlock);
+
+               /* const child  = playerSceneEntity.getChildren();
+                const child1 = child[0].getChildren();
+                console.log(child);
+                console.log(child1);*/
+                
+                props.setComponent('mesh_ref', "bf378433-3fee-45f9-8f8a-2a76ea863832");
+                increaseScoreForAction()//pour les obj de a machines 
                 
                 // Traitement de l'�v�nement
                /* setInterval(function () {
@@ -81,3 +91,4 @@ async function Take(block, playerSceneEntity) {
         endInputhelp();
     })
 }
+
