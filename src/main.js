@@ -17,6 +17,23 @@ async function InitApp() {
   });
    
     const canvas = document.getElementById("display_canvas");//c'est null mais je sais pas
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function example() {
+        console.log("Début du script");
+
+        // Utilisation de la fonction delay pour introduire un délai de 2 secondes
+        await delay(5000);
+
+        console.log("Exécution après un délai de 5 secondes");
+
+        console.log("Fin du script");
+    }
+    const settings = { playbackSpeed: 1 };
+    SDK3DVerse.engineAPI.playAnimationSequence(animationSequenceUUID, settings);
+    example();
 
     await InitFirstPersonController(characterControllerSceneUUID);
     await bestScore();
