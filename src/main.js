@@ -5,6 +5,7 @@ import {
 } from "./config.js";
 import { InitFirstPersonController, } from "./player.js";
 import { bestScore } from "./displayController.js";
+import { updateBulletDisplay } from "./displayController.js";
 
 
 async function InitApp() {
@@ -27,7 +28,6 @@ window.addEventListener('load', InitApp());
 
 //------------------------------------------------------------------------------merci gabriel
 async function setFPSCameraController(canvas){
-  console.log(canvas);
   // Remove the required click for the LOOK_LEFT, LOOK_RIGHT, LOOK_UP, and 
   // LOOK_DOWN actions.
   SDK3DVerse.actionMap.values["LOOK_LEFT"][0] = ["MOUSE_AXIS_X_POS"];
@@ -49,7 +49,6 @@ async function setFPSCameraController(canvas){
     }
 } else {
     console.error('L\'élément canvas n\'a pas été trouvé dans le DOM.');
-    canvas.style.cursor = "none";
 }
 
 };
@@ -105,3 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('L\'élément canvas n\'a pas été trouvé dans le DOM.');
   }
 });
+
+//affichage du nombres de balles au lancements
+document.addEventListener('DOMContentLoaded', function() { updateBulletDisplay();})
+

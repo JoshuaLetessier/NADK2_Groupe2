@@ -1,5 +1,6 @@
 import { shoot } from "./shooter.js";
 import { inputHelp, endInputhelp } from "./displayController.js";
+import { increaseScoreForAction } from "./Score.js";
 
 class Taking{
     FullHand = new Boolean(false);
@@ -25,10 +26,12 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         deleteOnClientDisconnection
     );
 
+
     playerSceneEntity.setComponent('local_transform', { position: [10, 7, 10] })
 
     //shoot(playerSceneEntity);
     Take(PropsTriggerEntity, playerSceneEntity,x);
+
 
     const firstPersonController = (await playerSceneEntity.getChildren())[0];
     // Look for the first person camera in the children of the controller.
@@ -96,3 +99,4 @@ async function Take(PropsTriggerEntity, playerSceneEntity,x) {
         endInputhelp();
     })
 }
+
