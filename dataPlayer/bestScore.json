@@ -1,6 +1,6 @@
 [
+    { "name": "Joueur2", "score": 1200 },
     { "name": "Joueur1", "score": 1000 },
-    { "name": "Joueur2", "score": 800 },
-    { "name": "Joueur3", "score": 1200 }
+    { "name": "Joueur3", "score": 800 }
   ]
   

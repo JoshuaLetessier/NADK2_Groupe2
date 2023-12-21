@@ -13,7 +13,7 @@ function decreaseScore() {
 
 export function increaseScoreForAction() {
     // Augmenter le score (ajuster la valeur selon vos besoins)
-    score += 10;
+    score += 100;
 
     // Mettre à jour l'affichage du score
     updateScoreDisplay();

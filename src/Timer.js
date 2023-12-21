@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Utilisation : démarrer le minuteur avec une durée de 10 minutes
-    startTimer(6000000); // Utilisation d'une courte durée à des fins de démonstration
+    startTimer(300); // Utilisation d'une courte durée à des fins de démonstration
 });
 
 

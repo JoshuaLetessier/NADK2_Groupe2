@@ -1,5 +1,6 @@
 import { shoot } from "./shooter.js";
 import { inputHelp, endInputhelp } from "./displayController.js";
+import { increaseScoreForAction } from "./Score.js";
 
 class Taking{
     FullHand = new Boolean(false);
@@ -25,7 +26,7 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         deleteOnClientDisconnection
     );
 
-    playerSceneEntity.setComponent('local_transform', { position: [10, 7, 10] })
+    playerSceneEntity.setComponent('local_transform', { position: [-55, 18, 80] })
 
     //shoot(playerSceneEntity);
     Take(PropsTriggerEntity, playerSceneEntity,x);
@@ -79,6 +80,7 @@ async function Take(PropsTriggerEntity, playerSceneEntity,x) {
                     props[0].setComponent('mesh_ref', { value: PropsTriggerEntity.components.mesh_ref.value }); //Attache le components sur la main
                     props[0].setVisibility(true);
                     x = true
+                    increaseScoreForAction();
                 }
                 if (PropsTriggerEntity.components.debug_name.value === "EtagereAp"){
                     console.log("Beaucoup trop gros");

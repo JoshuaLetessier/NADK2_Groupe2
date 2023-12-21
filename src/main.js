@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Exemple d'ajustement des coordonnées de la souris pour traverser les bords
            mouseX += movementX;
            mouseY += movementY;
-s
+           
           if (mouseX < 0) {
               mouseX = canvas.width - 1;
           } else if (mouseX >= canvas.width) {
