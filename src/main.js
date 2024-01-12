@@ -5,6 +5,7 @@ import {
 } from "./config.js";
 import { InitFirstPersonController, } from "./player.js";
 import { bestScore } from "./displayController.js";
+import { updateBulletDisplay } from "./displayController.js";
 
 
 async function InitApp() {
@@ -17,17 +18,38 @@ async function InitApp() {
   });
    
     const canvas = document.getElementById("display_canvas");//c'est null mais je sais pas
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-    await InitFirstPersonController(characterControllerSceneUUID);
-    await bestScore();
-    await setFPSCameraController(canvas);
+    async function example() {
+        console.log("Début du script");
+
+        // Utilisation de la fonction delay pour introduire un délai de 2 secondes
+        await delay(9200);
+        await InitFirstPersonController(characterControllerSceneUUID);
+        await bestScore();
+        await setFPSCameraController(canvas);
+
+        console.log("Exécution après un délai de 9.2 secondes");
+
+        console.log("Fin du script");
+    }
+    const animationSequenceUUID = "3fcd65b5-931a-45b7-ab7e-4855b01a8a05";
+    const settings = { playbackSpeed: 1 };
+    const mainCamera = await SDK3DVerse.engineAPI.findEntitiesByEUID("3b078256-a148-4d48-8811-1cdf0ebc12aa");
+    console.log(mainCamera);
+    SDK3DVerse.setMainCamera(mainCamera[0]);
+    SDK3DVerse.engineAPI.stopAnimationSequence(animationSequenceUUID);
+    SDK3DVerse.engineAPI.playAnimationSequence(animationSequenceUUID, settings);
+    example();
+
 }
 
 window.addEventListener('load', InitApp());
 
 //------------------------------------------------------------------------------merci gabriel
 async function setFPSCameraController(canvas){
-  console.log(canvas);
   // Remove the required click for the LOOK_LEFT, LOOK_RIGHT, LOOK_UP, and 
   // LOOK_DOWN actions.
   SDK3DVerse.actionMap.values["LOOK_LEFT"][0] = ["MOUSE_AXIS_X_POS"];
@@ -49,7 +71,6 @@ async function setFPSCameraController(canvas){
     }
 } else {
     console.error('L\'élément canvas n\'a pas été trouvé dans le DOM.');
-    canvas.style.cursor = "none";
 }
 
 };
@@ -82,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Exemple d'ajustement des coordonnées de la souris pour traverser les bords
            mouseX += movementX;
            mouseY += movementY;
-
+           
           if (mouseX < 0) {
               mouseX = canvas.width - 1;
           } else if (mouseX >= canvas.width) {
@@ -105,3 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('L\'élément canvas n\'a pas été trouvé dans le DOM.');
   }
 });
+
+//affichage du nombres de balles au lancements
+document.addEventListener('DOMContentLoaded', function() { updateBulletDisplay();})
+

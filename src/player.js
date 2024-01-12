@@ -1,5 +1,6 @@
 import { shoot } from "./shooter.js";
 import { inputHelp, endInputhelp } from "./displayController.js";
+import { increaseScoreForAction } from "./Score.js";
 
 class Taking{
     FullHand = new Boolean(false);
@@ -25,7 +26,7 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         deleteOnClientDisconnection
     );
 
-    playerSceneEntity.setComponent('local_transform', { position: [10, 7, 10] })
+    playerSceneEntity.setComponent('local_transform', { position: [-55, 18, 80] })
 
     //shoot(playerSceneEntity);
     Take(PropsTriggerEntity, playerSceneEntity,x);
@@ -47,37 +48,17 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 }
 
 
-async function Take(PropsTriggerEntity, playerSceneEntity,x) {
+document.addEventListener("keydown", async (event) => {
+    const block1 = await SDK3DVerse.engineAPI.findEntitiesByEUID("bf378433-3fee-45f9-8f8a-2a76ea863832");
+    if (event.key == "a") {
+        if (block1[0].components.debug_name.value === "Levier") {
+            SDK3DVerse.engineAPI.playAnimationSequence("0a61f9ee-f826-4abb-a52c-6cf54eaa3a60");
+        }
 
-    const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
+        const props = await SDK3DVerse.engineAPI.findEntitiesByEUID("81f5074f-467e-41a7-a27b-f6eea634701c"); //Ref de la main
 
-    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, PropsTriggerEntity, props) => {
-        //surbrillance de l'object
-        SDK3DVerse.engineAPI.selectEntities([PropsTriggerEntity]);
-
-        document.addEventListener("keydown", async (event) => {
-            const block1 = await SDK3DVerse.engineAPI.findEntitiesByEUID("39f3f7d5-5a09-4e33-ab16-72229bd88aaf");
-            const props = await SDK3DVerse.engineAPI.findEntitiesByEUID("8975af37-d5b6-4137-bb6c-f6fc4fe36fd2"); //Ref de la main
-
-            if (event.key == "a") {
-                console.log(PropsTriggerEntity);
-
-                if (PropsTriggerEntity.components.debug_name.value === "Levier") {
-                    SDK3DVerse.engineAPI.playAnimationSequence("0a61f9ee-f826-4abb-a52c-6cf54eaa3a60");
-                }
-
-                if (PropsTriggerEntity.components.debug_name.value === "Sphere" || PropsTriggerEntity.components.debug_name.value === "Cube-cle") {
-                    props[0].setComponent('mesh_ref', { value: PropsTriggerEntity.components.mesh_ref.value }); //Attache le components sur la main
-                    props[0].setVisibility(true);
-                    x = true
-                }
-                if (PropsTriggerEntity.components.debug_name.value === "EtagereAp"){
-                    console.log("Beaucoup trop gros");
-                    if (x == true) {
-                        SDK3DVerse.engineAPI.playAnimationSequence("3301dda7-c537-454e-8afb-3b8d71872ac8");
-                        props[0].setVisibility(false);
-                    }
-                }
+        console.log(props);
+        props[0].setComponent('mesh_ref', "08df2ff1-9628-4309-a1d3-9f718f5fd85b" ); //Attache le components sur la main
 
             }
             else if (event.key == "p") {
@@ -86,6 +67,16 @@ async function Take(PropsTriggerEntity, playerSceneEntity,x) {
                 SDK3DVerse.engineAPI.playAnimationSequence("88576897-0aca-494e-a1fe-31584575287c");
             }
         });
+
+async function Take(block, playerSceneEntity) {
+
+    const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
+
+    SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, block, props) => {
+        //surbrillance de l'object
+        SDK3DVerse.engineAPI.selectEntities([block]);
+
+        //console.log(playerSceneEntity, " entered trigger of ", block.components.debug_name.value);²
 
         inputHelp();
 
