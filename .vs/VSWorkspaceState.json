@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\Mobs"
   ],
-  "SelectedNode": "\\C:\\Users\\Dylan\\Source\\Repos\\NADK2_Groupe2",
+  "SelectedNode": "\\src\\player.js",
   "PreviewInSolutionExplorer": false
 }
