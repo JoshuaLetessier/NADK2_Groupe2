@@ -4,8 +4,8 @@ import {
   characterControllerSceneUUID,
 } from "./config.js";
 import { InitFirstPersonController, } from "./player.js";
-import { bestScore } from "./displayController.js";
-import { updateBulletDisplay } from "./displayController.js";
+import { updateBulletDisplay, audioOnEvent, bestScore} from "./displayController.js";
+import {startMobsLoop } from "./Mobs/SimpleMouveController.js";
 
 
 async function InitApp() {
@@ -26,10 +26,11 @@ async function InitApp() {
         console.log("Début du script");
 
         // Utilisation de la fonction delay pour introduire un délai de 2 secondes
-        await delay(9200);
+        //await delay(9200);
         await InitFirstPersonController(characterControllerSceneUUID);
+        await startMobsLoop();
         await bestScore();
-        await setFPSCameraController(canvas);
+        //await setFPSCameraController(canvas);
 
         console.log("Exécution après un délai de 9.2 secondes");
 
@@ -38,12 +39,12 @@ async function InitApp() {
     const animationSequenceUUID = "3fcd65b5-931a-45b7-ab7e-4855b01a8a05";
     const settings = { playbackSpeed: 1 };
     const mainCamera = await SDK3DVerse.engineAPI.findEntitiesByEUID("3b078256-a148-4d48-8811-1cdf0ebc12aa");
-    console.log(mainCamera);
+    //console.log(mainCamera);
     SDK3DVerse.setMainCamera(mainCamera[0]);
-    SDK3DVerse.engineAPI.stopAnimationSequence(animationSequenceUUID);
-    SDK3DVerse.engineAPI.playAnimationSequence(animationSequenceUUID, settings);
+    //SDK3DVerse.engineAPI.stopAnimationSequence(animationSequenceUUID);
+    //SDK3DVerse.engineAPI.playAnimationSequence(animationSequenceUUID, settings);
     example();
-
+    //audioOnEvent();
 }
 
 window.addEventListener('load', InitApp());
@@ -76,7 +77,7 @@ async function setFPSCameraController(canvas){
 };
 
 //mouvement latérale infini
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
   var canvas = document.getElementById('display-canvas');
   var mouseX = 0;
   var mouseY = 0;
@@ -125,8 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
       console.error('L\'élément canvas n\'a pas été trouvé dans le DOM.');
   }
-});
+});*/
 
 //affichage du nombres de balles au lancements
 document.addEventListener('DOMContentLoaded', function() { updateBulletDisplay();})
+
 
