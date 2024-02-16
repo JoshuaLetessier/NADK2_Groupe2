@@ -82,8 +82,7 @@ export async function getBulletCout()
     var bulletCount = 10;
     return bulletCount;
 }
-
-
+i
 export async function updateBulletDisplay() {
     var bulletCount = getBulletCout();
     var bulletDisplay = document.getElementById('amo');
@@ -122,9 +121,17 @@ export function audioOnEvent() {
     document.addEventListener('keydown', playAudio);
 }
 
-// Appeler la fonction au chargement de la page
 window.onload = function () {
     audioOnEvent();
 };
 
-
+export function task(itask)
+{
+    if(input == "t" || input == "T")
+    {
+        //popup
+    }
+    var outputElement = document.getElementById('task');
+    outputElement.textContent = "Explorer les lieux";
+    console.log('task');
+}

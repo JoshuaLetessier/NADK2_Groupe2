@@ -7,7 +7,7 @@ let lastTimestamp = 0;
 
 export function startMobsLoop() {
 
-    requestAnimationFrame(mobsLoop);
+   // requestAnimationFrame(mobsLoop);
 }
 
 async function mobsLoop(timestamp) {
@@ -26,7 +26,7 @@ async function mobsLoop(timestamp) {
 
 export async function moveInTriggerZone(deltaTime, mobsEntity, zoneEntity) {
     if (mobsEntity.length > 0) {
-        const localTransform = mobsEntity[0].getGlobalTransform().position;
+       /* const localTransform = mobsEntity[0].getGlobalTransform().position;
 
         // Calcul du déplacement en fonction de la vitesse et du temps
          const newPosition = [
@@ -35,17 +35,17 @@ export async function moveInTriggerZone(deltaTime, mobsEntity, zoneEntity) {
              localTransform[2] + speed
          ];
 
-        //console.log(newPosition);
+        //console.log(newPosition);*/
 
         mobsEntity[0].setGlobalTransform({ position: newPosition });
 
         SDK3DVerse.engineAPI.onExitTrigger(async (zoneEntity, mobsEntity) => {
             console.log("exit");
-            //collision(mobsEntity);
+            collision(mobsEntity);
         });
         SDK3DVerse.engineAPI.onEnterTrigger(async (zoneEntity, mobsEntity) => {
             console.log("enter");
-            //collision(mobsEntity);
+            collision(mobsEntity);
         });
     }
 }

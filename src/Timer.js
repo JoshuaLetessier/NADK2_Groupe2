@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     startTimer(3000000); // Utilisation d'une courte durée à des fins de démonstration
 });
 
-
 function loose()
 {
     console.log("0");

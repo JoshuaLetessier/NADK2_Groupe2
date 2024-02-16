@@ -1,5 +1,5 @@
 import { shoot } from "./shooter.js";
-import { inputHelp, endInputhelp } from "./displayController.js";
+import { inputHelp, endInputhelp, task } from "./displayController.js";
 import { increaseScoreForAction } from "./Score.js";
 
 class Taking {
@@ -26,7 +26,7 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
         deleteOnClientDisconnection
     );
 
-    playerSceneEntity.setComponent('local_transform', { position: [-55, 18, 80] })
+    playerSceneEntity.setComponent('local_transform', { position: [17, 18, 0] })
 
     //shoot(playerSceneEntity);
     Take(PropsTriggerEntity, playerSceneEntity, x);
@@ -49,6 +49,7 @@ export async function InitFirstPersonController(charCtlSceneUUID) {
 
 
 async function Take(PropsTriggerEntity, playerSceneEntity, x) {
+    var listPaper = [];
     const transformCamera = await SDK3DVerse.engineAPI.cameraAPI.getActiveViewports()
     SDK3DVerse.engineAPI.onEnterTrigger(async (playerSceneEntity, PropsTriggerEntity, props) => {
         //surbrillance de l'object
@@ -83,6 +84,15 @@ async function Take(PropsTriggerEntity, playerSceneEntity, x) {
                         props[0].setVisibility(false);
                     }
                 }
+                for(let i =0; i< length.listPaper; i++)
+                {
+                    if(PropsTriggerEntity.components.debug_name.value == "Paper"+listPaper[i])
+                    {
+                        //annimation
+                        //affichage de la task
+                    }
+                }
+               
             }
             else if (event.key == "p") {
                 block1[0].setVisibility(true);
